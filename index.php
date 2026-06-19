@@ -1,4 +1,10 @@
 <?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 require_once __DIR__ . '/src/ChatGPTService.php';
 
 $service = new ChatGPTService();
@@ -11,25 +17,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Integradora Chat IA</title>
+    <meta charset="UTF-8">
+    <title>Chat IA - Gemini</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>Chat com IA</h1>
 
-    <form method="POST">
-        <textarea name="message" placeholder="Digite sua pergunta..."></textarea>
-        <button type="submit">Enviar</button>
-    </form>
+    <div class="chat-box">
 
-    <div class="response">
-        <h3>Resposta:</h3>
-        <p><?= htmlspecialchars($response) ?></p>
+        <div class="header">
+            🤖 Chat IA Gemini
+        </div>
+
+        <div class="messages">
+
+            <?php if (!empty($response)): ?>
+                <div class="message bot">
+                    <?= htmlspecialchars($response) ?>
+                </div>
+            <?php endif; ?>
+
+        </div>
+
+        <form method="POST" class="input-area">
+            <input type="text" name="message" placeholder="Digite sua mensagem..." required>
+            <button type="submit">Enviar</button>
+        </form>
+
     </div>
+
 </div>
 
 </body>
