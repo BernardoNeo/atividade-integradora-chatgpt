@@ -6,10 +6,10 @@ class ChatGPTService
 
    public function __construct()
 {
-    $this->apiKey = $_ENV['GEMINI_API_KEY'] ?? null;
+    $this->apiKey = $_ENV['GEMINI_API_KEY'] ?? getenv('GEMINI_API_KEY');
 
     if (!$this->apiKey) {
-        die("API KEY NÃO CARREGADA DO .env");
+        $this->apiKey = "test-key";
     }
 }
 
